@@ -652,12 +652,15 @@ Folie 15: Schlussfolie
 
 ## Setup
 
+**Wichtig:** Setup-Block ist Python und MUSS als `python3 - <<'EOF' ... EOF`
+Heredoc ausgeführt werden — sonst interpretiert Bash `import` als ImageMagick.
+
 ```bash
 pip install python-pptx Pillow matplotlib --break-system-packages
 ```
 
-```python
-# Assets von GitHub laden (Verzeichnisstruktur für helpers.py erhalten)
+```bash
+python3 - <<'EOF'
 import os, sys, urllib.request
 _DIR = "/tmp/galledia_praesentation"
 os.makedirs(f"{_DIR}/assets/logo", exist_ok=True)
@@ -680,17 +683,28 @@ for _name in _FILES:
             urllib.request.urlretrieve(f"{_BASE}/{_name}", _dest)
             print(f"✓ {_name} ({os.path.getsize(_dest):,} bytes)")
         except Exception as e:
-            # HARD-STOP: Niemals from-scratch improvisieren ohne CI-Assets.
             raise RuntimeError(
                 f"Asset-Download fehlgeschlagen ({_name}): {e}. "
                 f"Plugin/Repo nicht erreichbar — Skill abbrechen und Asset-Fehler "
                 f"an User melden. NIEMALS mit python-pptx ohne Vorlage_6/Volte/"
                 f"Logos eine 'Galledia'-Präsentation bauen (CI-Verstoss garantiert)."
             )
+print("Assets bereit")
+EOF
+```
 
+Der eigentliche Build-Aufruf erfolgt im selben Code-Execution-Kontext in
+einem zweiten `python3 -` Heredoc:
+
+```bash
+python3 - <<'EOF'
+import sys
+sys.path.insert(0, "/tmp/galledia_praesentation")
 from helpers import (build_presentation, add_title, add_section, add_agenda,
                      add_content, add_closing, add_discussion,
                      kpi_grid, two_column, flow_pipeline, numbered_steps, timeline)
+# ... build_presentation(...) usw.
+EOF
 ```
 
 

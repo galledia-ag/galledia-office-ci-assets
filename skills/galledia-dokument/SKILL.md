@@ -20,12 +20,15 @@ Immer nachfragen, falls nicht im Gespräch bekannt:
 
 ## Setup
 
+**Wichtig:** Setup-Block ist Python und MUSS als `python3 - <<'EOF' ... EOF`
+Heredoc ausgeführt werden — sonst interpretiert Bash `import` als ImageMagick.
+
 ```bash
 pip install python-docx --break-system-packages
 ```
 
-```python
-# Assets von GitHub laden (Verzeichnisstruktur für fill_dokument.py erhalten)
+```bash
+python3 - <<'EOF'
 import os, sys, urllib.request
 _DIR = "/tmp/galledia_dokument"
 os.makedirs(f"{_DIR}/assets", exist_ok=True)
@@ -43,9 +46,12 @@ for _name in ["fill_dokument.py", "assets/Vorlage_Dokument.dotx"]:
                 f"Plugin/Repo nicht erreichbar — Skill abbrechen, NICHT mit "
                 f"python-docx from scratch improvisieren."
             )
-
-from fill_dokument import build_document
+print("Assets bereit")
+EOF
 ```
+
+Der eigentliche Build-Aufruf (`from fill_dokument import build_document`)
+erfolgt im selben Code-Execution-Kontext in einem zweiten `python3 -` Heredoc.
 
 ## Verwendung
 

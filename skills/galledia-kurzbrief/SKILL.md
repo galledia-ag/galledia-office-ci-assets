@@ -135,11 +135,16 @@ Alles korrekt?
 
 ### Schritt 3 — Setup + Build via Code Execution
 
+**Wichtig:** Beide nachfolgenden Code-Blöcke sind Python und MÜSSEN als
+`python3 - <<'EOF' ... EOF` Heredoc ausgeführt werden — sonst interpretiert
+Bash `import` als ImageMagick-Tool und scheitert.
+
 ```bash
 pip install python-docx --break-system-packages
 ```
 
-```python
+```bash
+python3 - <<'EOF'
 import os, sys, urllib.request
 _DIR = "/tmp/galledia_kurzbrief"
 os.makedirs(f"{_DIR}/assets", exist_ok=True)
@@ -155,7 +160,14 @@ for _name in ["fill_kurzbrief.py", "assets/Vorlage_Kurzbrief.dotx"]:
                 f"Asset-Download fehlgeschlagen ({_name}): {e}. "
                 f"Plugin/Repo nicht erreichbar — Skill abbrechen, NICHT improvisieren."
             )
+print("Assets bereit")
+EOF
+```
 
+```bash
+python3 - <<'EOF'
+import sys
+sys.path.insert(0, "/tmp/galledia_kurzbrief")
 from fill_kurzbrief import build_kurzbrief
 
 out = build_kurzbrief(
@@ -164,15 +176,17 @@ out = build_kurzbrief(
     sender_street="Buckhauserstrasse 24", sender_zip="8048", sender_city="Zürich",
     sender_contact_email="stefan.zimmermann@galledia.ch",
     sender_contact_phone="T +41 58 344 96 22",
+    signatory_role="Leitung Fachmedien & Digital | Mitglied der Gruppenleitung",
     recipient_salutation="Frau",
     recipient_first_name="Noëlla", recipient_last_name="Schüttel",
     recipient_street="Neuhofstrasse 26", recipient_zip="6345", recipient_city="Neuheim",
     subject="Felderhus",
     notes={"Note10": "Beilagen: gemäss Besprechung"},
-    # date_city, date werden auto-gesetzt
+    checked=["Note6"],
     output_path="/home/claude/Kurzbrief_Schüttel.docx",
 )
 print(f"Kurzbrief erstellt: {out}")
+EOF
 ```
 
 ### Schritt 4 — User die fertige .docx liefern

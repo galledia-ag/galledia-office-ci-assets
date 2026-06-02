@@ -114,12 +114,16 @@ Bei vager Antwort → nicht generieren, nachfragen.
 
 ### Schritt 3 — Setup + Build via Code Execution
 
+**Wichtig:** Beide nachfolgenden Code-Blöcke sind Python und MÜSSEN als
+`python3 - <<'EOF' ... EOF` Heredoc ausgeführt werden — sonst interpretiert
+Bash `import` als ImageMagick-Tool und scheitert.
+
 ```bash
 pip install python-docx --break-system-packages
 ```
 
-```python
-# Assets von GitHub laden
+```bash
+python3 - <<'EOF'
 import os, sys, urllib.request
 _DIR = "/tmp/galledia_brief"
 os.makedirs(f"{_DIR}/assets", exist_ok=True)
@@ -135,7 +139,14 @@ for _name in ["fill_brief.py", "assets/Vorlage_Brief.dotx"]:
                 f"Asset-Download fehlgeschlagen ({_name}): {e}. "
                 f"Plugin/Repo nicht erreichbar — Skill abbrechen, NICHT improvisieren."
             )
+print("Assets bereit")
+EOF
+```
 
+```bash
+python3 - <<'EOF'
+import sys
+sys.path.insert(0, "/tmp/galledia_brief")
 from fill_brief import build_brief
 
 out = build_brief(
@@ -144,6 +155,7 @@ out = build_brief(
     sender_street="Buckhauserstrasse 24", sender_zip="8048", sender_city="Zürich",
     sender_contact_email="stefan.zimmermann@galledia.ch",
     sender_contact_phone="T +41 58 344 96 22",
+    signatory_role="Leitung Fachmedien & Digital | Mitglied der Gruppenleitung",
     recipient_salutation="Herr",
     recipient_first_name="Hans", recipient_last_name="Müller",
     recipient_company="Müller AG",
@@ -156,10 +168,10 @@ im Q3 2026.
 
 Wir freuen uns auf Ihre Rückmeldung bis 30. Juni 2026.""",
     enclosures=["Offerte_Q3_2026.pdf", "AGB.pdf"],
-    # date_city, date werden auto-gesetzt aus sender_city + heute
     output_path="/home/claude/Brief_Mueller.docx",
 )
 print(f"Brief erstellt: {out}")
+EOF
 ```
 
 ### Schritt 4 — User die fertige .docx liefern
