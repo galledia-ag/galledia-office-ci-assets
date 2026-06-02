@@ -12,10 +12,10 @@ description: >
   Arbeitssprache: Schweizer Hochdeutsch (ss statt scharf-s, also "Grüsse"
   nicht "Grüße"). Die Dokumentengenerierung erfolgt ueber Code Execution
   (fill_brief.py + Vorlage_Brief.dotx) direkt im Sandbox.
-version: "2.0.5"
+version: "2.0.6"
 ---
 
-# Galledia Geschaeftsbrief (v2.0.5 — Code Execution)
+# Galledia Geschaeftsbrief (v2.0.6 — Code Execution)
 
 CI-konformer Brief direkt im Sandbox aus `Vorlage_Brief.dotx` via `fill_brief.py`.
 Funktioniert in claude.ai Web, Cowork und Claude Desktop.

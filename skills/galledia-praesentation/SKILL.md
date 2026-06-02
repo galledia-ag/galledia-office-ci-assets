@@ -5,11 +5,11 @@ description: >
   Verwenden wenn: ein Deck, Slides oder .pptx für Galledia / Galledia Fachmedien / ZSW
   erstellt, gefüllt oder überarbeitet werden soll. Liefert CI-Mechanik (Layouts, Farben,
   Schriften, Regeln) — nicht den Inhalt.
-version: "2.0.5"
+version: "2.0.6"
 template: assets/Vorlage_6.pptx
 ---
 
-# Galledia-Präsentation (v2.0.5)
+# Galledia-Präsentation (v2.0.6)
 
 Produktions-Skill für CI-konforme Galledia-Präsentationen mit MBB-Level-Layouts.
 56 Funktionen: Basis-Layouts, Frameworks (SWOT/Porter/BCG/McKinsey 9-Box/Wardley/BMC/...),

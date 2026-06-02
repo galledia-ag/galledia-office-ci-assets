@@ -13,10 +13,10 @@ description: >
   Checkboxen. Generierung ueber Code Execution (fill_kurzbrief.py +
   Vorlage_Kurzbrief.dotx) direkt im Sandbox.
   Arbeitssprache: Schweizer Hochdeutsch.
-version: "2.0.5"
+version: "2.0.6"
 ---
 
-# Galledia Kurzbrief (v2.0.5 — Code Execution)
+# Galledia Kurzbrief (v2.0.6 — Code Execution)
 
 1-seitiges Begleitschreiben fuer Beilagen mit 10 vordefinierten
 Notizoptionen (Checkboxen — werden automatisch mit ☒ angekreuzt
