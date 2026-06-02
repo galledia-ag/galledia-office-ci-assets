@@ -30,7 +30,7 @@ import os, sys, urllib.request
 _DIR = "/tmp/galledia_dokument"
 os.makedirs(f"{_DIR}/assets", exist_ok=True)
 sys.path.insert(0, _DIR)
-_BASE = "https://galledia-ag.github.io/galledia-office-ci/skills/galledia-dokument"
+_BASE = "https://raw.githubusercontent.com/galledia-ag/galledia-office-ci-assets/main/skills/galledia-dokument"
 for _name in ["fill_dokument.py", "assets/Vorlage_Dokument.dotx"]:
     _dest = f"{_DIR}/{_name}"
     if not os.path.exists(_dest):

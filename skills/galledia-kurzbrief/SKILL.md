@@ -13,10 +13,10 @@ description: >
   Checkboxen. Generierung ueber Code Execution (fill_kurzbrief.py +
   Vorlage_Kurzbrief.dotx) direkt im Sandbox.
   Arbeitssprache: Schweizer Hochdeutsch.
-version: "2.0.2"
+version: "2.0.4"
 ---
 
-# Galledia Kurzbrief (v2.0.2 — Code Execution)
+# Galledia Kurzbrief (v2.0.4 — Code Execution)
 
 1-seitiges Begleitschreiben fuer Beilagen mit 10 vordefinierten
 Notizoptionen (Checkboxen — werden automatisch mit ☒ angekreuzt
@@ -144,7 +144,7 @@ import os, sys, urllib.request
 _DIR = "/tmp/galledia_kurzbrief"
 os.makedirs(f"{_DIR}/assets", exist_ok=True)
 sys.path.insert(0, _DIR)
-_BASE = "https://galledia-ag.github.io/galledia-office-ci/skills/galledia-kurzbrief"
+_BASE = "https://raw.githubusercontent.com/galledia-ag/galledia-office-ci-assets/main/skills/galledia-kurzbrief"
 for _name in ["fill_kurzbrief.py", "assets/Vorlage_Kurzbrief.dotx"]:
     _dest = f"{_DIR}/{_name}"
     if not os.path.exists(_dest):
